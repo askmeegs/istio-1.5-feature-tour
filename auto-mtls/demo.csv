@@ -1,7 +1,7 @@
 Words,Command
 Get mTLS status,adpod=$(kubectl get pod -l app=adservice -o jsonpath={.items..metadata.name}); istioctl authn tls-check $adpod
 curl the frontend from inside the cluster,"adpod=$(kubectl get pod -l app=adservice -o jsonpath={.items..metadata.name}); kubectl exec -it $adpod -c istio-proxy  -- bash -c ""curl --head frontend"" "
-Open Kiali service graph - security view,
-"Enforce mTLS only, cluster-wide",cat strict.yaml
-Apply the PeerAuthentication policy,kubectl apply -f strict.yaml
+Open Kiali service graph - security view,"istioctl dashboard kiali &"
+"Enforce mTLS only, cluster-wide",cat auto-mtls/strict.yaml
+Apply the PeerAuthentication policy,kubectl apply -f auto-mtls/strict.yaml
 curl the frontend again,"adpod=$(kubectl get pod -l app=adservice -o jsonpath={.items..metadata.name}); kubectl exec -it $adpod -c istio-proxy  -- bash -c ""curl --head frontend"" "

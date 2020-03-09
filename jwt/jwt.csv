@@ -1,7 +1,0 @@
-Words,Command
-Curl ingressgateway IP,GWIP=$(kubectl get -n istio-system service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}'); curl --head $GWIP
-Show JWT policy,cat ingress-authn.yaml
-Apply JWT policy,kubectl apply -f ingress-authn.yaml
-Curl ingressgateway IP without a JWT,curl --head $GWIP
-Curl with a valid JWT,"GWIP=$(kubectl get -n istio-system service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}'); TOKEN=$(curl https://raw.githubusercontent.com/istio/istio/release-1.5/security/tools/jwt/samples/demo.jwt -s); curl --head --header ""Authorization: Bearer $TOKEN"" $GWIP"
-clean up,kubectl delete -f ingress-authn.yaml

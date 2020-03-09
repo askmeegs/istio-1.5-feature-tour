@@ -1,11 +1,6 @@
 Words,Command
 Get list of published WASM Envoy extensions,wasme list --published
 "Before deploying an extension, curl frontend headers",GWIP=$(kubectl get -n istio-system service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}'); curl --head $GWIP
-"Deploy ""add-header"" extension","wasme deploy istio webassemblyhub.io/ceposta/add-header:v0.2 \
---id=addheader \
---namespace default \
---config 'hello Istio 1.5! 🦉'"
+Deploy addheader extension,"wasme deploy istio webassemblyhub.io/ceposta/add-header:v0.2 --id=addheader --namespace default --config 'hello Istio 1.5! 🦉'"
 Curl frontend headers again,GWIP=$(kubectl get -n istio-system service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}'); curl --head $GWIP
-Clean up,"wasme undeploy istio webassemblyhub.io/ceposta/add-header:v0.2 \
---id=addheader \
---namespace default"
+Clean up,"wasme undeploy istio webassemblyhub.io/ceposta/add-header:v0.2 --id=addheader --namespace default"

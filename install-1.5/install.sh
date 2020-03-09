@@ -8,6 +8,9 @@ ISTIO_VERSION="${ISTIO_VERSION:-1.5.0}"
 log "Downloading Istio ${ISTIO_VERSION}..."
 curl -L https://git.io/getLatestIstio | ISTIO_VERSION=$ISTIO_VERSION sh -
 
+# Am I ready for install?
+istioctl verify-install
+
 # Prepare for install
 kubectl create namespace istio-system
 
@@ -25,8 +28,6 @@ istioctl manifest apply \
 --set values.kiali.enabled=true --set values.kiali.createDemoSecret=true \
 --set values.global.proxy.accessLogFile="/dev/stdout"
 
-# Verify install
-istioctl verify-install
 
 # Deploy app
 kubectl label namespace default istio-injection=enabled
